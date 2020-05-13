@@ -4,10 +4,15 @@ import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
+import { types } from 'pg';
 import routes from './routes';
 import AppError from './errors/AppError';
 
 import createConnection from './database';
+
+types.setTypeParser(1700, val => {
+  return parseFloat(val);
+});
 
 createConnection();
 const app = express();
